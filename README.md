@@ -14,10 +14,10 @@ Be sure you have installed the lastest MKL version: parallel_studio_xe_2017.
 
 ###Building
 Before install, you should set the MKL path for cmake:
-
+```sh
 export CMAKE_INCLUDE_PATH=$CMAKE_INCLUDE_PATH:/opt/intel/mkl/include
-
 export CMAKE_LIBRARY_PATH=$CMAKE_LIBRARY_PATH:/opt/intel/mkl/lib/intel64
+```
 
 Install this repo, which installs the torch distribution, with a lot of nice goodies.
 ```sh
@@ -34,13 +34,13 @@ TORCH_LUA_VERSION=LUA52 ./install.sh
 ```
 
 
-## Cleaning
+### Cleaning
 To remove all the temporary compilation files you can run:
 ```bash
 ./clean.sh
 ```
 
-## Test
+### Test
 You can test that all libraries are installed properly by running:
 ```bash
 ./test.sh

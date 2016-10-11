@@ -49,10 +49,10 @@ Tested on Ubuntu 14.04, CentOS 7.
 
 
 ###Performance
-To check the performance on the convnet benchmark, refer to this link:  https://github.com/xhzhao/Optimized-Torch-benchmark
+To check the performance on the convnet benchmark, refer to this [page](https://github.com/xhzhao/Optimized-Torch-benchmark)
 
 
-To check the convergency on the imagenet dataset, refer to this link:  https://github.com/xhzhao/imagenet-CPU.torch
+To check the convergency on the imagenet dataset, refer to this [page](https://github.com/xhzhao/imagenet-CPU.torch)
 
 ---
 >\* Other names and trademarks may be claimed as the property of others.

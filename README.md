@@ -57,3 +57,7 @@ To check the convergency on the imagenet dataset, refer to this [page](https://g
 
 ---
 >\* Other names and trademarks may be claimed as the property of others.
+
+
+###License
+MKL which is downloaded automatically from github can be freely distributed under an Apache 2 license. 

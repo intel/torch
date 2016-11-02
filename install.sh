@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+export CC=
+export CXX=
+intel=$1
+
+
 SKIP_RC=0
 BATCH_INSTALL=0
 
@@ -27,6 +32,8 @@ This script will install Torch and related, useful packages into $PREFIX.
     esac
 done
 
+#BLAS configuration(default = MKL)
+
 
 # Scrub an anaconda/conda install, if exists, from the PATH.
 # It has a malformed MKL library (as of 1/17/2015)
@@ -38,11 +45,50 @@ fi
 echo "Prefix set to $PREFIX"
 
 if [[ `uname` == 'Linux' ]]; then
-    export CMAKE_LIBRARY_PATH=/opt/OpenBLAS/include:/opt/OpenBLAS/lib:$CMAKE_LIBRARY_PATH
+    ICC_ON=0
+    if [[ $intel == 'intel' ]]; then
+        if [[ `which icc` == '' ]]; then
+            CC=gcc
+        else
+            CC=icc
+        fi    
+    
+        if [[ `which icpc` == '' ]]; then
+            CXX=g++
+        else
+            CXX=icpc
+        fi   
+        if [[ `echo $CC | grep icc` != '' ]]; then
+            ICC_ON=1
+        fi
+    else
+        ICC_ON=0
+    fi
+    
+    if [[ $ICC_ON == 1 ]]; then
+       echo 'using Intel compiler to compile torch'
+    else
+       echo 'using GNU compilter to compile torch'
+    fi
+
+
+    RETURN_STRING=`bash ./prepare_mkl.sh $ICC_ON`
+    export MKLROOT=`echo $RETURN_STRING | awk '{print $1}'`
+    echo $MKLROOT
+    MKL_LIBRARY_PATH=$MKLROOT/lib
+    MKL_INCLUDE_PATH=$MKLROOT/include
+
+    export CMAKE_LIBRARY_PATH=/opt/OpenBLAS/include:/opt/OpenBLAS/lib:$MKL_LIBRARY_PATH:$CMAKE_LIBRARY_PATH
+    export CMAKE_INCLUDE_PATH=/opt/OpenBLAS/include:$MKL_INCLUDE_PATH:$CMAKE_INCLUDE_PATH
+#    chmod +x configure.con
+#    source ./configure.con 
+    echo $CMAKE_LIBRARY_PATH
+    echo $CMAKE_INCLUDE_PATH
 fi
+
 export CMAKE_PREFIX_PATH=$PREFIX
 
-git submodule update --init --recursive --remote
+#git submodule update --init --recursive --remote
 
 # If we're on OS X, use clang
 if [[ `uname` == "Darwin" ]]; then

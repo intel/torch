@@ -8,23 +8,24 @@ Intel®Software Optimization for Torch
 ============
 This fork is dedicated to improving Torch performance when running on CPU, in particular Intel® Xeon processors (HSW, BDW, Xeon Phi)
 
-###Requirements
-Be sure you have installed the lastest MKL version: parallel_studio_xe_2017. 
+###~~Requirements~~
+~~Be sure you have installed the lastest MKL version: parallel_studio_xe_2017.~~
+
 
 
 ###Building
-Before install, you should set the MKL path for cmake:
-```sh
+~~Before install, you should set the MKL path for cmake:~~
+```sh~~
+# the code block could be ignored now.
 export CMAKE_INCLUDE_PATH=$CMAKE_INCLUDE_PATH:/opt/intel/mkl/include
 export CMAKE_LIBRARY_PATH=$CMAKE_LIBRARY_PATH:/opt/intel/mkl/lib/intel64
 ```
-
-Install this repo, which installs the torch distribution, with a lot of nice goodies.
+Install this repo, which installs the torch distribution, with a lot of nice goodies. 
 ```sh
 git clone https://github.com/intel/torch.git ./torch
 cd ~/torch; bash install-deps;
-./install.sh     #use gcc to install torch
-./install_icc.sh #use icc to install torch
+./install.sh        #use gcc to install torch
+./install.sh intel  #use icc to install torch
 ```
 
 By default Torch will install LuaJIT 2.1. If you want other options, you can use the command:

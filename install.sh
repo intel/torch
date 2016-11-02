@@ -88,7 +88,7 @@ fi
 
 export CMAKE_PREFIX_PATH=$PREFIX
 
-#git submodule update --init --recursive --remote
+git submodule update --init --recursive --remote
 
 # If we're on OS X, use clang
 if [[ `uname` == "Darwin" ]]; then

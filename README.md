@@ -20,7 +20,7 @@ This fork is dedicated to improving Torch performance when running on CPU, in pa
 export CMAKE_INCLUDE_PATH=$CMAKE_INCLUDE_PATH:/opt/intel/mkl/include
 export CMAKE_LIBRARY_PATH=$CMAKE_LIBRARY_PATH:/opt/intel/mkl/lib/intel64
 ```
-Install this repo, which installs the torch distribution, with a lot of nice goodies. 
+Install this repo, which installs the torch distribution, with a lot of nice goodies. You can specify which compiler to compiler the project, and the default compiler is gcc & g++.
 ```sh
 git clone https://github.com/intel/torch.git ./torch
 cd ~/torch; bash install-deps;

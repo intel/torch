@@ -49,7 +49,7 @@ You can test that all libraries are installed properly by running:
 ```
 Tested on Ubuntu 14.04, CentOS 7.
 
-<font color=#00ffff size=8>Some test cases of torch module fails as mentioned above. But all failed cases is related to LAPack and the amount of them is 21 On my machine (OS:Ubuntu 16.04).</font> 
+<font color=#00ffff size=8>`Some test cases of torch module fails` as mentioned above. But all failed cases is related to LAPack and the amount of them is 21 On my machine (OS:Ubuntu 16.04).</font> 
 
 
 ###Performance

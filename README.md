@@ -8,20 +8,18 @@ Intel®Software Optimization for Torch
 ============
 This fork is dedicated to improving Torch performance when running on CPU, in particular Intel® Xeon processors (HSW, BDW, Xeon Phi)
 
-###~~Requirements~~
-~~Be sure you have installed the lastest MKL version: parallel_studio_xe_2017.~~
+
+###Requirements
+If you have installed the lastest MKL version: parallel_studio_xe_2017. The autoDownloadMKL branch will be compiled smoothly as the master banch of it. 
+
+You don't have to worry if you havn't prepared the whole MKL. Because the prepare_mkl.sh scripts can help you download substitute goods automatically from github. It's necessary to warn you that some test cases of torch module fail due to the substitute libraries doesn't provide whole Linear Algebra Package(LAPACK), but all test cases of nn module pass successfuuly. So you can build your deep learning model use it and enjoy acceleration of MKL.
 
 
 
 ###Building
-We are on the way to fix some fatal bugs. The project are not available. Sorry.
-~~Before install, you should set the MKL path for cmake:~~
-```sh~~
-# the code block could be ignored now.
-export CMAKE_INCLUDE_PATH=$CMAKE_INCLUDE_PATH:/opt/intel/mkl/include
-export CMAKE_LIBRARY_PATH=$CMAKE_LIBRARY_PATH:/opt/intel/mkl/lib/intel64
-```
-Install this repo, which installs the torch distribution, with a lot of nice goodies. You can specify which compiler to compile the project, and the default compiler is gcc & g++.
+You need not specify MKL path extraly. The install.sh will detect MKL you prepared or substitute goods from github.
+Install this repo, which installs the torch distribution, with a lot of nice goodies. 
+You can specify which compiler to compile the project, and the default compiler is gcc & g++.
 ```sh
 git clone https://github.com/intel/torch.git ./torch
 cd ~/torch; bash install-deps;
@@ -47,6 +45,7 @@ You can test that all libraries are installed properly by running:
 ```bash
 ./test.sh
 ```
+<font color=DC143C size=12, face="bold"> Some test cases of torch module fails as mentioned above. But all failed cases is related to LAPack and the amount of them is 21 On my machine(OS:Ubuntu 16.04)</font> 
 Tested on Ubuntu 14.04, CentOS 7.
 
 
@@ -60,5 +59,3 @@ To check the convergency on the imagenet dataset, refer to this [page](https://g
 >\* Other names and trademarks may be claimed as the property of others.
 
 
-###License
-MKL which is downloaded automatically from github can be freely distributed under an Apache 2 license. 

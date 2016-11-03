@@ -10,9 +10,9 @@ This fork is dedicated to improving Torch performance when running on CPU, in pa
 
 
 ###Requirements
-If you have installed the lastest MKL version: parallel_studio_xe_2017. The autoDownloadMKL branch will be compiled smoothly as the master banch of it. 
+If you have installed the lastest MKL version: parallel_studio_xe_2017. The autoDownloadMKL branch will be compiled smoothly as the master branch. 
 
-You don't have to worry if you havn't prepared the whole MKL. Because the prepare_mkl.sh scripts can help you download substitute goods automatically from github. It's necessary to warn you that some test cases of torch module fail due to the substitute libraries doesn't provide whole Linear Algebra Package(LAPACK), but all test cases of nn module pass successfuuly. So you can build your deep learning model use it and enjoy acceleration of MKL.
+You don't have to worry if you havn't prepared the whole MKL. Because the prepare_mkl.sh script can help you download substitute goods automatically from github. It's necessary to warn you that some test cases of torch module fail due to the substitute libraries doesn't provide whole Linear Algebra Package(LAPACK), but all test cases of nn module pass successfuuly. So you can build your deep learning model safely and enjoy acceleration of MKL.
 
 
 
@@ -49,7 +49,7 @@ You can test that all libraries are installed properly by running:
 ```
 Tested on Ubuntu 14.04, CentOS 7.
 
-<font color=#00ffff size=8>`Some test cases of torch module fails` as mentioned above. But all failed cases is related to LAPack and the amount of them is 21 On my machine (OS:Ubuntu 16.04).</font> 
+<font color=#00ffff size=8>`Some test cases of torch module fail` as mentioned above. But all failed cases are related to LAPACK and the amount of them is 21 On my machine (OS:Ubuntu 16.04).</font> 
 
 
 ###Performance

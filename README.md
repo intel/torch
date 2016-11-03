@@ -18,7 +18,9 @@ You don't have to worry if you havn't prepared the whole MKL. Because the prepar
 
 ###Building
 You need not specify MKL path extraly. The install.sh will detect MKL you prepared or substitute goods from github.
+
 Install this repo, which installs the torch distribution, with a lot of nice goodies. 
+
 You can specify which compiler to compile the project, and the default compiler is gcc & g++.
 ```sh
 git clone https://github.com/intel/torch.git ./torch
@@ -45,7 +47,8 @@ You can test that all libraries are installed properly by running:
 ```bash
 ./test.sh
 ```
-<font color=DC143C size=12, face="bold"> Some test cases of torch module fails as mentioned above. But all failed cases is related to LAPack and the amount of them is 21 On my machine(OS:Ubuntu 16.04)</font> 
+<font color=DC143C size=12> Some test cases of torch module fails as mentioned above. But all failed cases is related to LAPack and the amount of them is 21 On my machine (OS:Ubuntu 16.04).</font> 
+
 Tested on Ubuntu 14.04, CentOS 7.
 
 

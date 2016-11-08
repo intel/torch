@@ -23,7 +23,7 @@ Install this repo, which installs the torch distribution, with a lot of nice goo
 
 You can specify which compiler to compile the project, and the default compiler is gcc & g++.
 ```sh
-git clone https://github.com/intel/torch.git ./torch
+git clone https://github.com/intel/torch.git ./torch -b autoDownloadMKL
 cd ~/torch; bash install-deps;
 ./install.sh        #use gcc to install torch
 ./install.sh intel  #use icc to install torch

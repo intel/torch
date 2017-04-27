@@ -88,7 +88,7 @@ fi
 
 export CMAKE_PREFIX_PATH=$PREFIX
 
-git submodule update --init --recursive --remote
+git submodule update --init --recursive
 
 # If we're on OS X, use clang
 if [[ `uname` == "Darwin" ]]; then
@@ -130,8 +130,8 @@ eval "$setup_lua_env_cmd"
 
 echo "Installing common Lua packages"
 cd ${THIS_DIR}/extra/luafilesystem && $PREFIX/bin/luarocks make rockspecs/luafilesystem-1.6.3-1.rockspec || exit 1
-cd ${THIS_DIR}/extra/penlight && $PREFIX/bin/luarocks make || exit 1
-cd ${THIS_DIR}/extra/lua-cjson && $PREFIX/bin/luarocks make || exit 1
+cd ${THIS_DIR}/extra/penlight && $PREFIX/bin/luarocks make penlight-scm-1.rockspec || exit 1
+cd ${THIS_DIR}/extra/lua-cjson && $PREFIX/bin/luarocks make lua-cjson-2.1devel-1.rockspec || exit 1
 
 echo "Installing core Torch packages"
 cd ${THIS_DIR}/extra/luaffifb && $PREFIX/bin/luarocks make                             || exit 1
@@ -140,12 +140,12 @@ cd ${THIS_DIR}/pkg/cwrap     && $PREFIX/bin/luarocks make rocks/cwrap-scm-1.rock
 cd ${THIS_DIR}/pkg/paths     && $PREFIX/bin/luarocks make rocks/paths-scm-1.rockspec   || exit 1
 cd ${THIS_DIR}/pkg/torch     && $PREFIX/bin/luarocks make rocks/torch-scm-1.rockspec   || exit 1
 cd ${THIS_DIR}/pkg/dok       && $PREFIX/bin/luarocks make rocks/dok-scm-1.rockspec     || exit 1
-cd ${THIS_DIR}/exe/trepl     && $PREFIX/bin/luarocks make                              || exit 1
+cd ${THIS_DIR}/exe/trepl     && $PREFIX/bin/luarocks make trepl-scm-1.rockspec         || exit 1
 cd ${THIS_DIR}/pkg/sys       && $PREFIX/bin/luarocks make sys-1.1-0.rockspec           || exit 1
 cd ${THIS_DIR}/pkg/xlua      && $PREFIX/bin/luarocks make xlua-1.0-0.rockspec          || exit 1
 cd ${THIS_DIR}/extra/nn      && $PREFIX/bin/luarocks make rocks/nn-scm-1.rockspec      || exit 1
 cd ${THIS_DIR}/extra/graph   && $PREFIX/bin/luarocks make rocks/graph-scm-1.rockspec   || exit 1
-cd ${THIS_DIR}/extra/nngraph && $PREFIX/bin/luarocks make                              || exit 1
+cd ${THIS_DIR}/extra/nngraph && $PREFIX/bin/luarocks make nngraph-scm-1.rockspec       || exit 1
 cd ${THIS_DIR}/pkg/image     && $PREFIX/bin/luarocks make image-1.1.alpha-0.rockspec   || exit 1
 cd ${THIS_DIR}/pkg/optim     && $PREFIX/bin/luarocks make optim-1.0.5-0.rockspec       || exit 1
 
@@ -161,7 +161,7 @@ comment1
 # Optional packages
 echo "Installing optional Torch packages"
 cd ${THIS_DIR}/pkg/gnuplot          && $PREFIX/bin/luarocks make rocks/gnuplot-scm-1.rockspec
-cd ${THIS_DIR}/exe/env              && $PREFIX/bin/luarocks make
+cd ${THIS_DIR}/exe/env              && $PREFIX/bin/luarocks make env-scm-1.rockspec
 cd ${THIS_DIR}/extra/nnx            && $PREFIX/bin/luarocks make nnx-0.1-1.rockspec
 cd ${THIS_DIR}/exe/qtlua            && $PREFIX/bin/luarocks make rocks/qtlua-scm-1.rockspec
 cd ${THIS_DIR}/pkg/qttorch          && $PREFIX/bin/luarocks make rocks/qttorch-scm-1.rockspec

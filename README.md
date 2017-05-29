@@ -59,7 +59,7 @@ This step is especially important when you are using a mkl patch.
 
 
 
-###Performance
+### Performance
 To check the performance on the convnet benchmark, refer to this [page](https://github.com/xhzhao/Optimized-Torch-benchmark)
 
 

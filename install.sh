@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
+export CC=
+export CXX=
+intel=$1
 
-SKIP_RC=0
+SKIP_R=0
 BATCH_INSTALL=0
 
 THIS_DIR=$(cd $(dirname $0); pwd)
@@ -43,11 +46,45 @@ fi
 echo "Prefix set to $PREFIX"
 
 if [[ `uname` == 'Linux' ]]; then
+    ICC_ON=0
+    if [[ $intel == 'intel' ]]; then
+        if [[ `which icc` == '' ]]; then
+            CC=gcc
+        else
+            CC=icc
+        fi    
+    
+        if [[ `which icpc` == '' ]]; then
+            CXX=g++
+        else
+            CXX=icpc
+        fi   
+        if [[ `echo $CC | grep icc` != '' ]]; then
+            ICC_ON=1
+        fi
+    else
+        ICC_ON=0
+    fi
+    
+    if [[ $ICC_ON == 1 ]]; then
+       echo 'using Intel compiler to compile torch'
+    else
+       echo 'using GNU compilter to compile torch'
+    fi
+
+    RETURN_STRING=`bash ./prepare_mkl.sh $ICC_ON`
+    export MKLML_ROOT=`echo $RETURN_STRING | awk '{print $1}'`
+    echo $MKLML_ROOT
+    MKLML_LIBRARY_PATH=$MKLROOT/lib
+    MKLML_INCLUDE_PATH=$MKLROOT/include
+    
+    export CMAKE_LIBRARY_PATH=/opt/OpenBLAS/include:/opt/OpenBLAS/lib:$MKLML_LIBRARY_PATH:$CMAKE_LIBRARY_PATH
+    export CMAKE_INCLUDE_PATH=/opt/OpenBLAS/include:$MKLML_INCLUDE_PATH:$CMAKE_INCLUDE_PATH
     export CMAKE_LIBRARY_PATH=$PREFIX/include:/opt/OpenBLAS/include:$PREFIX/lib:/opt/OpenBLAS/lib:$CMAKE_LIBRARY_PATH
 fi
 export CMAKE_PREFIX_PATH=$PREFIX
 
-#git submodule update --init --recursive
+git submodule update --init --recursive
 
 # If we're on OS X, use clang
 if [[ `uname` == "Darwin" ]]; then
@@ -115,18 +152,20 @@ cd ${THIS_DIR}/extra/lua-cjson && $PREFIX/bin/luarocks make lua-cjson-2.1devel-1
 echo "Installing core Torch packages"
 cd ${THIS_DIR}/extra/luaffifb && $PREFIX/bin/luarocks make luaffi-scm-1.rockspec       || exit 1
 cd ${THIS_DIR}/pkg/sundown   && $PREFIX/bin/luarocks make rocks/sundown-scm-1.rockspec || exit 1
-cd ${THIS_DIR}/pkg/cwrap     && $PREFIX/bin/luarocks make rocks/cwrap-scm-1.rockspec   || exit 1
-cd ${THIS_DIR}/pkg/paths     && $PREFIX/bin/luarocks make rocks/paths-scm-1.rockspec   || exit 1
-cd ${THIS_DIR}/pkg/torch     && $PREFIX/bin/luarocks make rocks/torch-scm-1.rockspec   || exit 1
-cd ${THIS_DIR}/pkg/dok       && $PREFIX/bin/luarocks make rocks/dok-scm-1.rockspec     || exit 1
-cd ${THIS_DIR}/exe/trepl     && $PREFIX/bin/luarocks make trepl-scm-1.rockspec         || exit 1
-cd ${THIS_DIR}/pkg/sys       && $PREFIX/bin/luarocks make sys-1.1-0.rockspec           || exit 1
-cd ${THIS_DIR}/pkg/xlua      && $PREFIX/bin/luarocks make xlua-1.0-0.rockspec          || exit 1
-cd ${THIS_DIR}/extra/nn      && $PREFIX/bin/luarocks make rocks/nn-scm-1.rockspec      || exit 1
-cd ${THIS_DIR}/extra/graph   && $PREFIX/bin/luarocks make rocks/graph-scm-1.rockspec   || exit 1
-cd ${THIS_DIR}/extra/nngraph && $PREFIX/bin/luarocks make nngraph-scm-1.rockspec       || exit 1
-cd ${THIS_DIR}/pkg/image     && $PREFIX/bin/luarocks make image-1.1.alpha-0.rockspec   || exit 1
-cd ${THIS_DIR}/pkg/optim     && $PREFIX/bin/luarocks make optim-1.0.5-0.rockspec       || exit 1
+cd ${THIS_DIR}/pkg/cwrap        && $PREFIX/bin/luarocks make rocks/cwrap-scm-1.rockspec   || exit 1
+cd ${THIS_DIR}/pkg/paths        && $PREFIX/bin/luarocks make rocks/paths-scm-1.rockspec   || exit 1
+cd ${THIS_DIR}/pkg/torch        && $PREFIX/bin/luarocks make rocks/torch-scm-1.rockspec   || exit 1
+cd ${THIS_DIR}/pkg/dok          && $PREFIX/bin/luarocks make rocks/dok-scm-1.rockspec     || exit 1
+cd ${THIS_DIR}/exe/trepl        && $PREFIX/bin/luarocks make trepl-scm-1.rockspec         || exit 1
+cd ${THIS_DIR}/pkg/sys          && $PREFIX/bin/luarocks make sys-1.1-0.rockspec           || exit 1
+cd ${THIS_DIR}/pkg/xlua         && $PREFIX/bin/luarocks make xlua-1.0-0.rockspec          || exit 1
+cd ${THIS_DIR}/extra/nn         && $PREFIX/bin/luarocks make rocks/nn-scm-1.rockspec      || exit 1
+cd ${THIS_DIR}/extra/mkltorch   && $PREFIX/bin/luarocks make mkltorch-scm-1.rockspec      || exit 1
+cd ${THIS_DIR}/extra/mklnn         && $PREFIX/bin/luarocks make mklnn-scm-1.rockspec      || exit 1
+cd ${THIS_DIR}/extra/graph      && $PREFIX/bin/luarocks make rocks/graph-scm-1.rockspec   || exit 1
+cd ${THIS_DIR}/extra/nngraph    && $PREFIX/bin/luarocks make nngraph-scm-1.rockspec       || exit 1
+cd ${THIS_DIR}/pkg/image        && $PREFIX/bin/luarocks make image-1.1.alpha-0.rockspec   || exit 1
+cd ${THIS_DIR}/pkg/optim        && $PREFIX/bin/luarocks make optim-1.0.5-0.rockspec       || exit 1
 
 if [ -x "$path_to_nvcc" ]
 then

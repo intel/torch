@@ -22,6 +22,12 @@
 [submodule "extra/cutorch"]
 	path = extra/cutorch
 	url = https://github.com/torch/cutorch.git
+[submodule "extra/mkltorch"]
+	path = extra/mkltorch
+	url = https://github.com/MlWoo/mkltorch.git
+[submodule "extra/mklnn"]
+	path = extra/mklnn
+	url = https://github.com/xhzhao/mklnn.git
 [submodule "pkg/torch"]
 	path = pkg/torch
 	url = https://github.com/MlWoo/torch7.git

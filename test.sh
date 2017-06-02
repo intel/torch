@@ -1,3 +1,4 @@
+#!/bin/bash
 set -e
 
 LUA=$(which luajit lua | head -n 1)

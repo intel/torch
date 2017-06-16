@@ -3,9 +3,11 @@ export CC=
 export CXX=
 
 #compiling option
+
 intel=$1    # compiler icc/gcc
 avx512=$2   # AVX512F on/off 
 omp=$3      # intel intel/gnu
+
 
 FORCE_AVX512_v=OFF
 if [[ $avx512 == 'avx512' ]]; then
@@ -14,10 +16,10 @@ else
   FORCE_AVX512_v=OFF
 fi
 
-WITH_IOMP_v=OFF
+WITH_IOMP_v=ON
 if [[ $omp == 'iomp' ]]; then
   WITH_IOMP_v=ON
-else
+elif [[ $omp == 'gomp']]; then 
   WITH_IOMP_v=OFF
 fi
 

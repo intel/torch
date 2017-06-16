@@ -17,8 +17,12 @@ bash install-deps
 #### Lua and Torch
 The self-contained Lua and Torch installations are performed via:
 ```bash
-./install.sh
+./install.sh [intel] [avx512] [gomp]
 ```
+param: intel/gnu    using intel compiler, Default using intel openmp.
+       avx/avx512   forcing compilers(GCC version should be greater than 4.9) to use AVX512F instructions to compile the framework.
+       gomp/iomp    using gnu openmp. Default using intel openmp. 
+You'd better use all paramters.
 
 By default Torch will install LuaJIT 2.1. If you want other options, you can use the command:
 ```bash

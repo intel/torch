@@ -1,7 +1,25 @@
 #!/usr/bin/env bash
 export CC=
 export CXX=
-intel=$1
+
+#compiling option
+intel=$1    # compiler icc/gcc
+avx512=$2   # AVX512F on/off 
+omp=$3      # intel intel/gnu
+
+FORCE_AVX512_v=OFF
+if [[ $avx512 == 'avx512' ]]; then
+  FORCE_AVX512_v=ON
+else
+  FORCE_AVX512_v=OFF
+fi
+
+WITH_IOMP_v=OFF
+if [[ $omp == 'iomp' ]]; then
+  WITH_IOMP_v=ON
+else
+  WITH_IOMP_v=OFF
+fi
 
 SKIP_R=0
 BATCH_INSTALL=0
@@ -72,7 +90,8 @@ if [[ `uname` == 'Linux' ]]; then
        echo 'using GNU compilter to compile torch'
     fi
 
-    RETURN_STRING=`bash ./prepare_mkl.sh $ICC_ON`
+    #`./prepare_mklml.sh $ICC_ON`
+    RETURN_STRING=`./prepare_mklml.sh $ICC_ON`
     export MKLML_ROOT=`echo $RETURN_STRING | awk '{print $1}'`
     echo $MKLML_ROOT
     MKLML_LIBRARY_PATH=$MKLROOT/lib
@@ -154,14 +173,14 @@ cd ${THIS_DIR}/extra/luaffifb && $PREFIX/bin/luarocks make luaffi-scm-1.rockspec
 cd ${THIS_DIR}/pkg/sundown   && $PREFIX/bin/luarocks make rocks/sundown-scm-1.rockspec || exit 1
 cd ${THIS_DIR}/pkg/cwrap        && $PREFIX/bin/luarocks make rocks/cwrap-scm-1.rockspec   || exit 1
 cd ${THIS_DIR}/pkg/paths        && $PREFIX/bin/luarocks make rocks/paths-scm-1.rockspec   || exit 1
-cd ${THIS_DIR}/pkg/torch        && $PREFIX/bin/luarocks make rocks/torch-scm-1.rockspec   || exit 1
+cd ${THIS_DIR}/pkg/torch        && $PREFIX/bin/luarocks make WITH_IOMP=$WITH_IOMP_v FORCE_AVX512=$FORCE_AVX512_v  rocks/torch-scm-1.rockspec   || exit 1
 cd ${THIS_DIR}/pkg/dok          && $PREFIX/bin/luarocks make rocks/dok-scm-1.rockspec     || exit 1
 cd ${THIS_DIR}/exe/trepl        && $PREFIX/bin/luarocks make trepl-scm-1.rockspec         || exit 1
 cd ${THIS_DIR}/pkg/sys          && $PREFIX/bin/luarocks make sys-1.1-0.rockspec           || exit 1
 cd ${THIS_DIR}/pkg/xlua         && $PREFIX/bin/luarocks make xlua-1.0-0.rockspec          || exit 1
-cd ${THIS_DIR}/extra/nn         && $PREFIX/bin/luarocks make rocks/nn-scm-1.rockspec      || exit 1
-cd ${THIS_DIR}/extra/mkltorch   && $PREFIX/bin/luarocks make mkltorch-scm-1.rockspec      || exit 1
-cd ${THIS_DIR}/extra/mklnn      && $PREFIX/bin/luarocks make mklnn-scm-1.rockspec      || exit 1
+cd ${THIS_DIR}/extra/nn         && $PREFIX/bin/luarocks make FORCE_AVX512=$FORCE_AVX512_v CC=$CC rocks/nn-scm-1.rockspec      || exit 1
+cd ${THIS_DIR}/extra/mkltorch   && $PREFIX/bin/luarocks make FORCE_AVX512=$FORCE_AVX512_v CC=$CC mkltorch-scm-1.rockspec      || exit 1
+cd ${THIS_DIR}/extra/mklnn      && $PREFIX/bin/luarocks make FORCE_AVX512=$FORCE_AVX512_v CC=$CC mklnn-scm-1.rockspec      || exit 1
 cd ${THIS_DIR}/extra/graph      && $PREFIX/bin/luarocks make rocks/graph-scm-1.rockspec   || exit 1
 cd ${THIS_DIR}/extra/nngraph    && $PREFIX/bin/luarocks make nngraph-scm-1.rockspec       || exit 1
 cd ${THIS_DIR}/pkg/image        && $PREFIX/bin/luarocks make image-1.1.alpha-0.rockspec   || exit 1

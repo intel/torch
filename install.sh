@@ -19,7 +19,7 @@ fi
 WITH_IOMP_v=ON
 if [[ $omp == 'iomp' ]]; then
   WITH_IOMP_v=ON
-elif [[ $omp == 'gomp' ]]; then 
+elif [[ $omp == 'gomp']]; then 
   WITH_IOMP_v=OFF
 fi
 

@@ -43,7 +43,7 @@ if [ -z $MKLMLROOT ] || [ $VERSION_LINE -lt $VERSION_MATCH ]; then
     VERSION_LINE=`GetVersionName $DST/$MKLML_CONTENT_DIR`
     if [ $VERSION_LINE -lt $VERSION_MATCH ] ; then
       #...If it is not then downloaded and unpacked
-      #wget --no-check-certificate -P $DST $MKLMLURL -O $DST/$ARCHIVE_BASENAME
+      wget --no-check-certificate -P $DST $MKLMLURL -O $DST/$ARCHIVE_BASENAME
       tar -xzf $DST/$ARCHIVE_BASENAME -C $DST
     fi
 

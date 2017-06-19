@@ -165,6 +165,7 @@ fi
 setup_lua_env_cmd=$($PREFIX/bin/luarocks path)
 eval "$setup_lua_env_cmd"
 
+echo "$CC"
 echo "Installing common Lua packages"
 cd ${THIS_DIR}/extra/luafilesystem && $PREFIX/bin/luarocks make rockspecs/luafilesystem-1.6.3-1.rockspec || exit 1
 cd ${THIS_DIR}/extra/penlight && $PREFIX/bin/luarocks make penlight-scm-1.rockspec || exit 1
@@ -180,9 +181,9 @@ cd ${THIS_DIR}/pkg/dok          && $PREFIX/bin/luarocks make rocks/dok-scm-1.roc
 cd ${THIS_DIR}/exe/trepl        && $PREFIX/bin/luarocks make trepl-scm-1.rockspec         || exit 1
 cd ${THIS_DIR}/pkg/sys          && $PREFIX/bin/luarocks make sys-1.1-0.rockspec           || exit 1
 cd ${THIS_DIR}/pkg/xlua         && $PREFIX/bin/luarocks make xlua-1.0-0.rockspec          || exit 1
-cd ${THIS_DIR}/extra/nn         && $PREFIX/bin/luarocks make FORCE_AVX512=$FORCE_AVX512_v CC=$CC rocks/nn-scm-1.rockspec      || exit 1
-cd ${THIS_DIR}/extra/mkltorch   && $PREFIX/bin/luarocks make FORCE_AVX512=$FORCE_AVX512_v CC=$CC mkltorch-scm-1.rockspec      || exit 1
-cd ${THIS_DIR}/extra/mklnn      && $PREFIX/bin/luarocks make FORCE_AVX512=$FORCE_AVX512_v CC=$CC mklnn-scm-1.rockspec      || exit 1
+cd ${THIS_DIR}/extra/nn         && $PREFIX/bin/luarocks make FORCE_AVX512=$FORCE_AVX512_v rocks/nn-scm-1.rockspec      || exit 1
+cd ${THIS_DIR}/extra/mkltorch   && $PREFIX/bin/luarocks make FORCE_AVX512=$FORCE_AVX512_v mkltorch-scm-1.rockspec      || exit 1
+cd ${THIS_DIR}/extra/mklnn      && $PREFIX/bin/luarocks make FORCE_AVX512=$FORCE_AVX512_v mklnn-scm-1.rockspec      || exit 1
 cd ${THIS_DIR}/extra/graph      && $PREFIX/bin/luarocks make rocks/graph-scm-1.rockspec   || exit 1
 cd ${THIS_DIR}/extra/nngraph    && $PREFIX/bin/luarocks make nngraph-scm-1.rockspec       || exit 1
 cd ${THIS_DIR}/pkg/image        && $PREFIX/bin/luarocks make image-1.1.alpha-0.rockspec   || exit 1

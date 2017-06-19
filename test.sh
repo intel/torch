@@ -27,12 +27,15 @@ $LUA -lxlua      -e "print('x$(basename $LUA) loaded succesfully')"
 $LUA -largcheck  -e "print('argcheck loaded succesfully')"
 $LUA -lgraph     -e "print('graph loaded succesfully')"
 $LUA -lnn        -e "print('nn loaded succesfully')"
+$LUA -lmkltorch  -e "print('mkltorch loaded succesfully')"
+$LUA -lmklnn     -e "print('mklnn loaded succesfully')"
 $LUA -lnngraph   -e "print('nngraph loaded succesfully')"
 $LUA -lnnx       -e "print('nnx loaded succesfully')"
 $LUA -lthreads   -e "print('threads loaded succesfully')"
 
 th -ltorch -e "torch.test()"
 th -lnn    -e "nn.test()"
+th -lmklnn -e "mklnn.test()"
 
 if [ $(basename $LUA) = "luajit" ]
 then

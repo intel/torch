@@ -28,10 +28,10 @@ echo $VERSION_LINE  # Return Version Line
 # MKLML
 DST=`dirname $0`
 OMP=0 
-VERSION_MATCH=20170209
-ARCHIVE_BASENAME=mklml_lnx_2017.0.2.20170209.tgz
+VERSION_MATCH=20170425
+ARCHIVE_BASENAME=mklml_lnx_2018.0.20170425.tgz
 MKLML_CONTENT_DIR=`echo $ARCHIVE_BASENAME | rev | cut -d "." -f 2- | rev`
-GITHUB_RELEASE_TAG=v0.5
+GITHUB_RELEASE_TAG=v0.9
 MKLMLURL="https://github.com/01org/mkl-dnn/releases/download/$GITHUB_RELEASE_TAG/$ARCHIVE_BASENAME"
 # there are diffrent MKL lib to be used for GCC and for ICC
 reg='^[0-9]+$'

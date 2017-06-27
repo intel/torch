@@ -1,59 +1,56 @@
 [![Build Status](https://travis-ci.org/torch/distro.svg?branch=master)](https://travis-ci.org/torch/distro)
 
-Self-contained Torch installation
+Torch*
 ============
+Torch is a scientific computing framework with wide support for machine learning algorithms. It is easy to use and efficient, thanks to an easy and fast scripting language, LuaJIT, and an underlying C/CUDA implementation.
 
-#### Please refer to the [Torch installation guide](http://torch.ch/docs/getting-started.html#_) for details on how to make a fresh install of Torch on Linux or MacOS.
-#### If on windows with msvc, please refer to this [guide](win-files/README.md) for details on installation and usage.
+Intel®Software Optimization for Torch
+============
+This fork is dedicated to improving Torch performance when running on CPU, in particular Intel® Xeon processors (HSW, BDW, Xeon Phi)
 
 
-## Repo content
-#### Dependencies
-Globally installed dependencies can be installed via:
-```bash
+###Requirements
+If you are root user, please use this command to install OpenBlas and other dependency: 
+```
 bash install-deps
 ```
 
-#### Lua and Torch
-The self-contained Lua and Torch installations are performed via:
-```bash
-./install.sh [intel] [avx512] [gomp]
+If you are not root user, please install OpenBlas from sourece code.
+
+###Building
+Install this repo, which installs the torch distribution, with a lot of nice goodies. 
+
+You can specify which compiler to compile the project, and the default compiler is gcc & g++.
+```sh
+git clone https://github.com/intel/torch.git ~/torch
+cd ~/torch; bash install-deps;
+./install.sh        #use gcc to install torch
+./install.sh intel  #use icc to install torch
 ```
-param:  
- * intel/gnu    using intel compiler, Default using intel openmp.  
- * avx/avx512   forcing compilers(GCC version should be greater than 4.9) to use AVX512F instructions to compile the framework.  
- * gomp/iomp    using gnu openmp. Default using intel openmp.     
 
 By default Torch will install LuaJIT 2.1. If you want other options, you can use the command:
-```bash
-# If a different version was installed, used ./clean.sh to clean it
+```sh
 TORCH_LUA_VERSION=LUA51 ./install.sh
 TORCH_LUA_VERSION=LUA52 ./install.sh
 ```
 
-## Update
-To update your already installed distro to the latest `master` branch of `torch/distro` simply run:
-```bash
-./update.sh
-```
 
-## Cleaning
+### Cleaning
 To remove all the temporary compilation files you can run:
 ```bash
 ./clean.sh
 ```
 
-To remove the installation run:
-```bash
-# Warning: this will remove your current installation
-rm -rf ./install
-```
-You may also want to remove the `torch-activate` entry from your shell start-up script (`~/.bashrc` or `~/.profile`).
-
-## Test
+### Test
 You can test that all libraries are installed properly by running:
 ```bash
 ./test.sh
 ```
+Tested on Ubuntu 14.04, CentOS 7.
 
-Tested on Ubuntu 14.04, CentOS/RHEL 6.3 and OSX
+
+
+---
+>\* Other names and trademarks may be claimed as the property of others.
+
+

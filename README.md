@@ -15,7 +15,7 @@ If you are root user, please use this command to install OpenBlas and other depe
 bash install-deps
 ```
 
-If you are not root user, please install OpenBlas from source code.
+If you are not root user, please install OpenBlas from source code, and add OpenBlas lib directory to LD_LIBRARY_PATH
 
 ### Building
 Install this repo, which installs the torch distribution, with a lot of nice goodies. 

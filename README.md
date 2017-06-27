@@ -9,7 +9,7 @@ Intel®Software Optimization for Torch
 This fork is dedicated to improving Torch performance when running on CPU, in particular Intel® Xeon processors (HSW, BDW, Xeon Phi)
 
 
-###Requirements
+### Requirements
 If you are root user, please use this command to install OpenBlas and other dependency: 
 ```
 bash install-deps
@@ -17,7 +17,7 @@ bash install-deps
 
 If you are not root user, please install OpenBlas from sourece code.
 
-###Building
+### Building
 Install this repo, which installs the torch distribution, with a lot of nice goodies. 
 
 You can specify which compiler to compile the project, and the default compiler is gcc & g++.

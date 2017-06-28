@@ -17,7 +17,7 @@ bash install-deps
 
 If you are not root user, please use this command to install OpenBlas from source code, and this script will add OpenBLAS to LD_LIBRARY_PATH automaticly.
 ```
-bash install-openblas.sh
+. ./install-openblas.sh
 ```
 
 ### Building

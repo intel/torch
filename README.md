@@ -11,12 +11,12 @@ This fork is dedicated to improving Torch performance when running on CPU, in pa
 
 ### Requirements
 If you are root user, please use this command to install OpenBlas and other dependency: 
-```
+```sh
 bash install-deps
 ```
 
 If you are not root user, please use this command to install OpenBlas from source code, and this script will add OpenBLAS to LD_LIBRARY_PATH automaticly.
-```
+```sh
 . ./install-openblas.sh
 ```
 
@@ -28,7 +28,7 @@ You can specify which compiler to compile the project, and the default compiler 
 git clone https://github.com/intel/torch.git ~/torch
 cd ~/torch; bash install-deps;
 ./install.sh        #use gcc to install torch
-./install.sh intel  #use icc to install torch
+./install.sh icc  #use icc to install torch
 ```
 
 By default Torch will install LuaJIT 2.1. If you want other options, you can use the command:
@@ -40,18 +40,25 @@ TORCH_LUA_VERSION=LUA52 ./install.sh
 
 ### Cleaning
 To remove all the temporary compilation files you can run:
-```bash
+```sh
 ./clean.sh
 ```
 
 ### Test
 You can test that all libraries are installed properly by running:
-```bash
+```sh
 ./test.sh
 ```
 Tested on Ubuntu 14.04, CentOS 7.
 
-
+### More build options for install.sh
+* 1 icc/gcc,    default gcc
+* 2 avx512/off, default off
+* 3 iomp/gomp,  default gomp
+* 4 noskip/skip,default noskip, skip means skip the openblas checking
+```sh
+./install.sh [gcc] [avx512] [gomp] [noskip]
+```
 
 ---
 >\* Other names and trademarks may be claimed as the property of others.

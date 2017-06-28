@@ -1,28 +1,5 @@
 #!/usr/bin/env bash
 
-#identify user level, and check openblas.For root user, check /opt/OpenBLAS, for none root user, check ~/OpenBLAS
-if [ "$(ls -A /opt/OpenBLAS)" ]; then
-   echo "OpenBLAS is installed in /opt"
-else
-   if [[ $EUID -ne 0 ]]; then
-      #none root user
-      RTN=$(echo $LD_LIBRARY_PATH |grep OpenBLAS)
-      if [ -z "$RTN" ]; then
-         echo "OpenBLAS is not installed, or environment is not set"
-         bash install-openblas.sh
-      else
-         echo "OpenBLAS installed done."
-
-      fi
-   else
-      #root user
-      echo "please instal OpenBLAS: bash install-deps , or apt-get install -y libopenblas-dev "
-      exit 0
-   fi
-fi
-
-
-
 
 export CC=
 export CXX=
@@ -32,7 +9,30 @@ export CXX=
 intel=$1    # compiler icc/gcc
 avx512=$2   # AVX512F on/off 
 omp=$3      # intel intel/gnu
-
+skip=$4     # skip openblas, value = noskip/skip, default is noskip
+if [[ $skip == 'skip' ]]; then
+   echo "skip openblas check"
+else
+   #identify user level, and check openblas.For root user, check /opt/OpenBLAS, for none root user, check ~/OpenBLAS
+   if [ "$(ls -A /opt/OpenBLAS)" ]; then
+      echo "OpenBLAS is installed in /opt"
+   else
+      if [[ $EUID -ne 0 ]]; then
+         #none root user
+         RTN=$(echo $LD_LIBRARY_PATH |grep OpenBLAS)
+         if [ -z "$RTN" ]; then
+            echo "OpenBLAS is not installed, or environment is not set"
+            bash install-openblas.sh
+         else
+            echo "OpenBLAS installed done."
+   
+         fi
+      else
+         #root user
+         echo "ERROR: please instal OpenBLAS: bash install-deps , or apt-get install -y libopenblas-dev "
+      fi
+   fi
+fi
 
 FORCE_AVX512_v=OFF
 if [[ $avx512 == 'avx512' ]]; then
@@ -92,7 +92,7 @@ echo "Prefix set to $PREFIX"
 
 if [[ `uname` == 'Linux' ]]; then
     ICC_ON=0
-    if [[ $intel == 'intel' ]]; then
+    if [[ $intel == 'icc' ]]; then
         if [[ `which icc` == '' ]]; then
             CC=gcc
         else

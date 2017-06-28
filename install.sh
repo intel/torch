@@ -1,4 +1,29 @@
 #!/usr/bin/env bash
+
+#identify user level, and check openblas.For root user, check /opt/OpenBLAS, for none root user, check ~/OpenBLAS
+if [ "$(ls -A /opt/OpenBLAS)" ]; then
+   echo "OpenBLAS is installed in /opt"
+else
+   if [[ $EUID -ne 0 ]]; then
+      #none root user
+      RTN=$(echo $LD_LIBRARY_PATH |grep OpenBLAS)
+      if [ -z "$RTN" ]; then
+         echo "OpenBLAS is not installed, or environment is not set"
+         bash install-openblas.sh
+      else
+         echo "OpenBLAS installed done."
+
+      fi
+   else
+      #root user
+      echo "please instal OpenBLAS: bash install-deps , or apt-get install -y libopenblas-dev "
+      exit 0
+   fi
+fi
+
+
+
+
 export CC=
 export CXX=
 
@@ -102,6 +127,9 @@ if [[ `uname` == 'Linux' ]]; then
     export CMAKE_LIBRARY_PATH=/opt/OpenBLAS/include:/opt/OpenBLAS/lib:$MKLML_LIBRARY_PATH:$CMAKE_LIBRARY_PATH
     export CMAKE_INCLUDE_PATH=/opt/OpenBLAS/include:$MKLML_INCLUDE_PATH:$CMAKE_INCLUDE_PATH
     export CMAKE_LIBRARY_PATH=$PREFIX/include:/opt/OpenBLAS/include:$PREFIX/lib:/opt/OpenBLAS/lib:$CMAKE_LIBRARY_PATH
+    export CMAKE_LIBRARY_PATH=~/OpenBLAS/include:~/OpenBLAS/lib:$CMAKE_LIBRARY_PATH
+    export LD_LIBRARY_PATH=~/OpenBLAS/include:~/OpenBLAS/lib:$LD_LIBRARY_PATH
+
 fi
 export CMAKE_PREFIX_PATH=$PREFIX
 

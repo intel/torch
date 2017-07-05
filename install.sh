@@ -4,6 +4,7 @@
 export CC=
 export CXX=
 
+
 #compiling option
 
 intel=$1    # compiler icc/gcc
@@ -50,6 +51,7 @@ fi
 
 SKIP_R=0
 BATCH_INSTALL=0
+
 
 THIS_DIR=$(cd $(dirname $0); pwd)
 if [[ "$THIS_DIR" == *" "* ]]; then
@@ -277,6 +279,11 @@ add the following lines to your shell profile:
 
 . $PREFIX/bin/torch-activate
 "
+fi
+
+if [[ $skip == 'skip' ]]; then
+   BATCH_INSTALL=1
+   RC_FILE=1
 fi
 
 WRITE_PATH_TO_PROFILE=0

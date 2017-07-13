@@ -283,7 +283,7 @@ fi
 
 if [[ $skip == 'skip' ]]; then
    BATCH_INSTALL=1
-   RC_FILE=1
+   RC_FILE=
 fi
 
 WRITE_PATH_TO_PROFILE=0

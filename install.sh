@@ -23,7 +23,7 @@ else
          RTN=$(echo $LD_LIBRARY_PATH |grep -i openblas)
          if [ -z "$RTN" ]; then
             echo "OpenBLAS is not installed, or environment is not set"
-            . ./install-openblas.sh
+            bash install-openblas.sh
          else
             echo "OpenBLAS installed."
    
@@ -34,6 +34,7 @@ else
       fi
    fi
 fi
+
 
 FORCE_AVX512_v=OFF
 if [[ $avx512 == 'avx512' ]]; then

@@ -20,12 +20,12 @@ else
    else
       if [[ $EUID -ne 0 ]]; then
          #none root user
-         RTN=$(echo $LD_LIBRARY_PATH |grep OpenBLAS)
+         RTN=$(echo $LD_LIBRARY_PATH |grep -i openblas)
          if [ -z "$RTN" ]; then
             echo "OpenBLAS is not installed, or environment is not set"
-            bash install-openblas.sh
+            . ./install-openblas.sh
          else
-            echo "OpenBLAS installed done."
+            echo "OpenBLAS installed."
    
          fi
       else
@@ -316,6 +316,7 @@ else
     fi
 fi
 
+WRITE_PATH_TO_PROFILE=0
 if [[ $WRITE_PATH_TO_PROFILE == 1 ]]; then
     echo "
 

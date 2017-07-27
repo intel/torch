@@ -59,6 +59,16 @@ Tested on Ubuntu 14.04, CentOS 7.
 ```sh
 ./install.sh [gcc] [avx512] [gomp] [noskip]
 ```
+If you want to use MKL as the default BLAS library, please activate MKL before install.sh:
+```sh
+export MKL_ROOT=/opt/intel/mkl
+export MKL_INCLUDE=$MKL_ROOT/include
+export MKL_LIBRARY=$MKL_ROOT/lib/intel64
+source /opt/intel/mkl/bin/mklvars.sh intel64
+source /opt/intel/bin/compilervars.sh intel64
+export CMAKE_INCLUDE_PATH=$MKL_INCLUDE:$CMAKE_INCLUDE_PATH
+export CMAKE_LIBRARY_PATH=$MKL_LIBRARY:$CMAKE_LIBRARY_PATH
+```
 
 ---
 >\* Other names and trademarks may be claimed as the property of others.

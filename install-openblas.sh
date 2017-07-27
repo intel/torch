@@ -8,3 +8,4 @@ make install PREFIX=~/OpenBLAS
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/OpenBLAS/lib
 SET_LLP="export LD_LIBRARY_PATH=\$LD_LIBRARY_PATH:~/OpenBLAS/lib"
 echo "$SET_LLP" >> ~/.bashrc
+cd ../

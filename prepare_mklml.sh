@@ -37,33 +37,35 @@ MKLMLURL="https://github.com/01org/mkl-dnn/releases/download/$GITHUB_RELEASE_TAG
 reg='^[0-9]+$'
 #echo "----->"  $DST
 VERSION_LINE=`GetVersionName $MKLMLROOT`
-# Check if MKLMLROOT is set if positive then set one will be used..
-if [ -z $MKLMLROOT ] || [ $VERSION_LINE -lt $VERSION_MATCH ]; then
-	# ..if MKLROOT is not set then check if we have MKL downloaded in proper version
-    VERSION_LINE=`GetVersionName $DST/$MKLML_CONTENT_DIR`
-    if [ $VERSION_LINE -lt $VERSION_MATCH ] ; then
-      #...If it is not then downloaded and unpacked
-      wget --no-check-certificate -P $DST $MKLMLURL -O $DST/$ARCHIVE_BASENAME
-      tar -xzf $DST/$ARCHIVE_BASENAME -C $DST
-    fi
+if [[ $2 == ON ]]; then
+  # Check if MKLMLROOT is set if positive then set one will be used..
+  if [ -z $MKLMLROOT ] || [ $VERSION_LINE -lt $VERSION_MATCH ]; then
+  	# ..if MKLROOT is not set then check if we have MKL downloaded in proper version
+      VERSION_LINE=`GetVersionName $DST/$MKLML_CONTENT_DIR`
+      if [ $VERSION_LINE -lt $VERSION_MATCH ] ; then
+        #...If it is not then downloaded and unpacked
+        wget --no-check-certificate -P $DST $MKLMLURL -O $DST/$ARCHIVE_BASENAME
+        tar -xzf $DST/$ARCHIVE_BASENAME -C $DST
+      fi
+  
+    FindLibrary $1
+    #echo "----- $LOCALMKLML"
+    MKLMLROOT=$PWD/`echo $LOCALMKLML | sed -e 's/lib.*$//'`
+  fi
+  # return value to calling script (Makefile,cmake)
+  echo $MKLMLROOT $LIBRARIES $OMP
 
-  FindLibrary $1
-  #echo "----- $LOCALMKLML"
-  MKLMLROOT=$PWD/`echo $LOCALMKLML | sed -e 's/lib.*$//'`
+else 
+  
+  # Check what MKL lib we have in MKLROOT
+
+  if [ -z `find $MKLROOT -name libmkl_rt.so -print -quit` ]; then
+    LIBRARIES=`basename $LOCALMKL | sed -e 's/^.*lib//' | sed -e 's/\.so.*$//'`
+    OMP=1
+  else
+    LIBRARIES="mkl_rt"
+  fi 
+  echo $MKLROOT $LIBRARIES $OMP
+
 fi
-
-# Check what MKL lib we have in MKLROOT
-if [ -z `find $MKLMLROOT -name libmkl_rt.so -print -quit` ]; then
-  LIBRARIES=`basename $LOCALMKLML | sed -e 's/^.*lib//' | sed -e 's/\.so.*$//'`
-  OMP=1
-else
-  echo "MKL instead of mklml"
-  LIBRARIES="mkl_rt"
-fi 
-
-#echo "=====>  $MKLMLROOT"
-
-# return value to calling script (Makefile,cmake)
-echo $MKLMLROOT $LIBRARIES $OMP
-
 

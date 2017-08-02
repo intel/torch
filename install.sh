@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
-
 export CC=
 export CXX=
-
 
 #compiling option
 
@@ -149,7 +147,12 @@ if [[ `uname` == 'Linux' ]]; then
     export LD_LIBRARY_PATH=~/OpenBLAS/include:~/OpenBLAS/lib:$LD_LIBRARY_PATH
 
 fi
+
 export CMAKE_PREFIX_PATH=$PREFIX
+if [[ $intel == 'gcc' ]]; then
+  export CC=`which gcc`
+  export CXX=`which g++`
+fi
 
 git submodule update --init --recursive
 

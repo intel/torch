@@ -53,11 +53,11 @@ Tested on Ubuntu 14.04, CentOS 7.
 
 ### More build options for install.sh
 * 1 icc/gcc,    default gcc
-* 2 avx512/off, default off
-* 3 iomp/gomp,  default gomp
+* 2 avx512/off, default off, 
+* 3 mklml/mkl,  default mkl, Functions in OpenBLAS does **NOT** get any support of AVX512 instructions.
 * 4 noskip/skip,default noskip, skip means skip the openblas checking
 ```sh
-./install.sh [gcc] [avx512] [gomp] [noskip]
+./install.sh [gcc] [avx512] [mklml] [noskip]
 ```
 If you want to use MKL as the default BLAS library, please activate MKL before install.sh:
 ```sh

@@ -57,10 +57,11 @@ Tested on Ubuntu 14.04, CentOS 7.
 ./install.sh [gcc] [avx512] [mklml] [noskip]
 ```
 
-* 1 icc/gcc,    default gcc
-* 2 avx512/off, default off, avx512 will force compilers(GCC version should be greater than 4.9.2) to use AVX512F instructions to compile the framework. 
-* 3 mklml/mkl,  default mkl.
-* 4 noskip/skip,default noskip, skip means skip the openblas checking
+*  icc/gcc,    default gcc
+*  avx512/off, default off, avx512 will force compilers(GCC version should be greater than 4.9.2) to use AVX512F instructions to compile the framework. 
+*  mklml/mkl,  default mkl.
+*  noskip/skip,default noskip, skip means skip the openblas checking  
+
 If you want to use MKL as the default BLAS library, please activate MKL before install.sh:
 ```sh
 source /opt/intel/mkl/bin/mklvars.sh intel64

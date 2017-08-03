@@ -52,22 +52,18 @@ You can test that all libraries are installed properly by running:
 Tested on Ubuntu 14.04, CentOS 7.
 
 ### More build options for install.sh
-* 1 icc/gcc,    default gcc
-* 2 avx512/off, default off, 
-* 3 mklml/mkl,  default mkl, Functions in OpenBLAS does **NOT** get any support of AVX512 instructions.
-* 4 noskip/skip,default noskip, skip means skip the openblas checking
+
 ```sh
 ./install.sh [gcc] [avx512] [mklml] [noskip]
 ```
+
+* 1 icc/gcc,    default gcc
+* 2 avx512/off, default off, avx512 will force compilers(GCC version should be greater than 4.9.2) to use AVX512F instructions to compile the framework. 
+* 3 mklml/mkl,  default mkl.
+* 4 noskip/skip,default noskip, skip means skip the openblas checking
 If you want to use MKL as the default BLAS library, please activate MKL before install.sh:
 ```sh
-export MKL_ROOT=/opt/intel/mkl
-export MKL_INCLUDE=$MKL_ROOT/include
-export MKL_LIBRARY=$MKL_ROOT/lib/intel64
 source /opt/intel/mkl/bin/mklvars.sh intel64
-source /opt/intel/bin/compilervars.sh intel64
-export CMAKE_INCLUDE_PATH=$MKL_INCLUDE:$CMAKE_INCLUDE_PATH
-export CMAKE_LIBRARY_PATH=$MKL_LIBRARY:$CMAKE_LIBRARY_PATH
 ```
 
 ---
